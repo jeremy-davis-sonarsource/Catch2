@@ -73,12 +73,14 @@ jobs:
     - name: Install Build Wrapper
       shell: bash
       run: |
+        pwd
         curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
         unzip -o build-wrapper-linux-x86.zip
 
     - name: Install Sonar Scanner
       shell: bash
       run: |
+        pwd
         curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
         unzip sonar-scanner-cli-4.4.0.2170-linux.zip
           
@@ -91,6 +93,7 @@ jobs:
       #       This is important
       shell: bash
       run: |
+        pwd
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir cfamily-output \
           cmake -Bbuild -H$GITHUB_WORKSPACE \
               -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
