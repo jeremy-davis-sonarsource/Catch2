@@ -77,13 +77,6 @@ jobs:
         ls
         curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
         unzip -o build-wrapper-linux-x86.zip
-
-    - name: Install Sonar Scanner
-      shell: bash
-      run: |
-        pwd
-        curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
-        unzip sonar-scanner-cli-4.4.0.2170-linux.zip
           
     - name: Configure build
       working-directory: ${{runner.workspace}}
@@ -104,6 +97,15 @@ jobs:
               -DCATCH_DEVELOPMENT_BUILD=ON \
               -G Ninja
 
+
+    - name: Install Sonar Scanner
+      shell: bash
+      run: |
+        pwd
+        curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
+        unzip sonar-scanner-cli-4.4.0.2170-linux.zip
+        
+        
     - name: Scan with SonarCloud
       env:
         SONAR_HOST_URL: https://sonarcloud.io
