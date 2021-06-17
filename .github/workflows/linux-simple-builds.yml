@@ -89,6 +89,7 @@ jobs:
         CXXFLAGS: ${{matrix.cxxflags}}
       # Note: $GITHUB_WORKSPACE is distinct from ${{runner.workspace}}.
       #       This is important
+      shell: bash
       run: |
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir cfamily-output \
           cmake -Bbuild -H$GITHUB_WORKSPACE \
