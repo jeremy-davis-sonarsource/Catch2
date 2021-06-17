@@ -70,14 +70,6 @@ jobs:
     - name: Prepare environment
       run: sudo apt-get install -y ninja-build ${{matrix.other_pkgs}}
 
-    - name: Install Build Wrapper
-      shell: bash
-      run: |
-        pwd
-        ls
-        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
-        unzip -o build-wrapper-linux-x86.zip
-          
     - name: Configure build
       working-directory: ${{runner.workspace}}
       env:
@@ -87,8 +79,6 @@ jobs:
       #       This is important
       shell: bash
       run: |
-        pwd
-        ls        
         cmake -Bbuild -H$GITHUB_WORKSPACE \
               -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
@@ -96,6 +86,16 @@ jobs:
               -DCATCH_DEVELOPMENT_BUILD=ON \
               -G Ninja
 
+
+    - name: Install Build Wrapper
+      shell: bash
+      run: |
+        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        unzip -o build-wrapper-linux-x86.zip
+          
+    - name: Build tests + lib
+      working-directory: ${{runner.workspace}}/build
+      run: build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir cfamily-output ninja
 
     - name: Install Sonar Scanner
       shell: bash
@@ -113,10 +113,6 @@ jobs:
       shell: bash
       run: sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=cfamily-output
           
-
-    - name: Build tests + lib
-      working-directory: ${{runner.workspace}}/build
-      run: ninja
 
     - name: Run tests
       env:
