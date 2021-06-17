@@ -3,7 +3,7 @@
 # approach used in simple-builds
 name: Linux builds (complex)
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   build:
