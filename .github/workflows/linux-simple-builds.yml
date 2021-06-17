@@ -74,6 +74,7 @@ jobs:
       shell: bash
       run: |
         pwd
+        ls
         curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
         unzip -o build-wrapper-linux-x86.zip
 
@@ -94,6 +95,7 @@ jobs:
       shell: bash
       run: |
         pwd
+        ls
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir cfamily-output \
           cmake -Bbuild -H$GITHUB_WORKSPACE \
               -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
