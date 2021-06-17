@@ -95,7 +95,7 @@ jobs:
           
     - name: Build tests + lib
       working-directory: ${{runner.workspace}}/build
-      run: build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir cfamily-output ninja
+      run: ../build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir cfamily-output ninja
 
     - name: Install Sonar Scanner
       shell: bash
