@@ -87,22 +87,18 @@ jobs:
               -G Ninja
 
 
-    - name: Install Build Wrapper
-      shell: bash
-      run: |
-        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
-        unzip -o build-wrapper-linux-x86.zip
+#     - name: Install Build Wrapper
+#       shell: bash
+#       run: |
+#         curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+#         unzip -o build-wrapper-linux-x86.zip
           
     - name: Build tests + lib
       working-directory: ${{runner.workspace}}/build
       run: |
-        pwd
-        echo ---
-        ls
-        echo ---
-        ls ..
-        echo ---
-        ../build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir cfamily-output ninja
+        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        unzip -o build-wrapper-linux-x86.zip
+        build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir cfamily-output ninja
 
     - name: Install Sonar Scanner
       shell: bash
