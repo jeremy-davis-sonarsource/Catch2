@@ -111,7 +111,7 @@ jobs:
     - name: Cache Sonar Scanner cache
       uses: actions/cache@v2
       with:
-        key: catch2-cache
+        key: catch2-cache-${{matrix.cxx}}-${{matrix.std}}-${{matrix.build_type}}
         path: sonar-cache
 
     - name: Scan with SonarCloud
