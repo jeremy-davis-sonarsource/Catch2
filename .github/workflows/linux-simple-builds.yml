@@ -101,7 +101,7 @@ jobs:
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir ${{runner.workspace}}/cfamily-output ninja
 
     - name: Install Sonar Scanner
-      working-directory: ${{runner.workspace}}
+      working-directory:
       shell: bash
       run: |
         pwd
@@ -110,13 +110,12 @@ jobs:
         
         
     - name: Scan with SonarCloud
-      working-directory: ${{runner.workspace}}
       env:
         SONAR_HOST_URL: https://sonarcloud.io
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       shell: bash
-      run: sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=cfamily-output
+      run: sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output= ${{runner.workspace}}/cfamily-output
           
 
     - name: Run tests
