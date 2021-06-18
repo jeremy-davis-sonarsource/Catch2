@@ -108,7 +108,12 @@ jobs:
         curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
         unzip sonar-scanner-cli-4.4.0.2170-linux.zip
         
-        
+    - name: Cache Sonar Scanner cache
+      uses: actions/cache@v2
+      with:
+        key: catch2-cache
+        path: sonar-cache
+
     - name: Scan with SonarCloud
       env:
         SONAR_HOST_URL: https://sonarcloud.io
