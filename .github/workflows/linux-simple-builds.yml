@@ -66,7 +66,7 @@ jobs:
     - name: Build tests + lib
       working-directory: ${{runner.workspace}}/build
       run: |
-        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        curl -L -O https://sq.shavedyaks.com/static/cpp/build-wrapper-linux-x86.zip
         unzip -o build-wrapper-linux-x86.zip
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir ${{runner.workspace}}/cfamily-output ninja
     
