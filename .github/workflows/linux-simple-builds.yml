@@ -9,16 +9,13 @@ jobs:
     strategy:
       matrix:
         cxx:
-          - g++-9
           - g++-10
           - clang++-9
           - clang++-10
-        build_type: [Debug, Release]
+        build_type: [Debug]
         std: [14]
         include:
         # cannot be installed on ubuntu-20.04 be default?
-          - cxx: g++-9
-            other_pkgs: g++-9
           - cxx: g++-10
             other_pkgs: g++-10
           - cxx: clang++-9
