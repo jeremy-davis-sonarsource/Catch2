@@ -67,12 +67,14 @@ jobs:
         path: sonar-cache
 
     - name: Scan with SonarQube # ------------------------------
-      uses: SonarSource/sonarqube-scan-action@v1.0.0
-      with:
-        args: -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
+#       uses: SonarSource/sonarqube-scan-action@v1.0.0
+#       with:
+#         args: -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      shell: bash
+      run: sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
       # --------------------------------------------------------
 
     - name: Run tests
