@@ -60,6 +60,14 @@ jobs:
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir ${{runner.workspace}}/cfamily-output ninja
         # ------------------------------ 
     
+    - name: Install Sonar Scanner
+       working-directory:
+       shell: bash
+       run: |
+         pwd
+         curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
+         unzip sonar-scanner-cli-4.4.0.2170-linux.zip
+         
     - name: Cache Sonar Scanner cache
       uses: actions/cache@v2
       with:
