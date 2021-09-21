@@ -60,13 +60,13 @@ jobs:
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir ${{runner.workspace}}/cfamily-output ninja
         # ------------------------------ 
     
-    - name: Install Sonar Scanner
-      working-directory:
-      shell: bash
-      run: |
-        pwd
-        curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
-        unzip sonar-scanner-cli-4.4.0.2170-linux.zip
+#     - name: Install Sonar Scanner
+#       working-directory:
+#       shell: bash
+#       run: |
+#         pwd
+#         curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
+#         unzip sonar-scanner-cli-4.4.0.2170-linux.zip
          
     - name: Cache Sonar Scanner cache
       uses: actions/cache@v2
@@ -75,14 +75,14 @@ jobs:
         path: sonar-cache
 
     - name: Scan with SonarQube # ------------------------------
-#       uses: SonarSource/sonarqube-scan-action@v1.0.0
-#       with:
-#         args: -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
+      uses: SonarSource/sonarqube-scan-action@v1.0.0
+      with:
+        args: -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      shell: bash
-      run: sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
+#       shell: bash
+#       run: sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
       # --------------------------------------------------------
 
     - name: Run tests
