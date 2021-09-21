@@ -57,11 +57,10 @@ jobs:
         # ------------------------------ 
         curl -L -O ${{ secrets.SONAR_HOST_URL }}/static/cpp/build-wrapper-linux-x86.zip
         unzip -o build-wrapper-linux-x86.zip
-        build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir cfamily-output ninja
+        build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir ${{runner.workspace}}/cfamily-output ninja
         # ------------------------------ 
     
     - name: Install Sonar Scanner
-      working-directory: ${{runner.workspace}}/build
       shell: bash
       run: |
         pwd
@@ -75,12 +74,11 @@ jobs:
         path: sonar-cache
 
     - name: Scan with SonarQube # ------------------------------
-      working-directory: ${{runner.workspace}}/build
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       shell: bash
-      run: sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=cfamily-output
+      run: sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
       # --------------------------------------------------------
 
     - name: Run tests
