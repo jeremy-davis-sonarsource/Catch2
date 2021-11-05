@@ -60,7 +60,7 @@ jobs:
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir ${{runner.workspace}}/cfamily-output ninja
         # ------------------------------ 
     
-    - name: Install Sonar Scanner
+    - name: Install SonarScanner
       shell: bash
       run: |
         curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
