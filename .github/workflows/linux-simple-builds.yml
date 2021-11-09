@@ -51,20 +51,19 @@ jobs:
               -DCATCH_DEVELOPMENT_BUILD=ON \
               -G Ninja
           
-    - name: Build tests + lib
-      working-directory: ${{runner.workspace}}/build
+    - name: Download and install the build wrapper, build the project
       run: |
-        # ------------------------------ 
-        curl -L -O ${{ secrets.SONAR_HOST_URL }}/static/cpp/build-wrapper-linux-x86.zip
-        unzip -o build-wrapper-linux-x86.zip
-        build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir ${{runner.workspace}}/cfamily-output ninja
-        # ------------------------------ 
+        mkdir $HOME/.sonar
+        curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip \${{ secrets.SONAR_HOST_URL }}/static/cpp/build-wrapper-linux-x86.zip
+        unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+        $HOME/.sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output ninja
+      env:
+        SONAR_HOST_URL: \${{ secrets.SONAR_HOST_URL }}
     
-    - name: Install SonarScanner
-      #shell: bash
+    - name: Download and install the SonarScanner
       run: |
-        curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
-        unzip sonar-scanner-cli-4.4.0.2170-linux.zip
+        curl -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+        unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
          
     - name: Cache Sonar Scanner cache
       uses: actions/cache@v2
