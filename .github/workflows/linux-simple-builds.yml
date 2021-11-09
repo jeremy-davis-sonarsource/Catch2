@@ -53,6 +53,7 @@ jobs:
           
     - name: Download and install the build wrapper, build the project
       shell: bash
+      working-directory: ${{runner.workspace}}/build
       run: |
         mkdir $HOME/.sonar
         curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip \${{ secrets.SONAR_HOST_URL }}/static/cpp/build-wrapper-linux-x86.zip
