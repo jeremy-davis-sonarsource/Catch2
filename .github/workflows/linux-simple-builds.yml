@@ -52,6 +52,7 @@ jobs:
               -G Ninja
           
     - name: Download and install the build wrapper, build the project
+      shell: bash
       run: |
         mkdir $HOME/.sonar
         curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip \${{ secrets.SONAR_HOST_URL }}/static/cpp/build-wrapper-linux-x86.zip
@@ -61,6 +62,7 @@ jobs:
         SONAR_HOST_URL: \${{ secrets.SONAR_HOST_URL }}
     
     - name: Download and install the SonarScanner
+      shell: bash
       run: |
         curl -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
         unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
@@ -75,7 +77,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      #shell: bash
+      shell: bash
       run: sonar-scanner-4.4.0.2170-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
       # --------------------------------------------------------
 
