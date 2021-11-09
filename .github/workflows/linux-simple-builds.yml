@@ -10,8 +10,8 @@ jobs:
       matrix:
         cxx:
           - g++-10
-          - clang++-9
-          - clang++-10
+          #- clang++-9
+          #- clang++-10
         build_type: [Debug]
         std: [14]
         include:
@@ -42,7 +42,7 @@ jobs:
       env:
         CXX: ${{matrix.cxx}}
         CXXFLAGS: ${{matrix.cxxflags}}
-      shell: bash
+      #shell: bash
       run: |
         cmake -Bbuild -H$GITHUB_WORKSPACE \
               -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
@@ -61,7 +61,7 @@ jobs:
         # ------------------------------ 
     
     - name: Install SonarScanner
-      shell: bash
+      #shell: bash
       run: |
         curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
         unzip sonar-scanner-cli-4.4.0.2170-linux.zip
