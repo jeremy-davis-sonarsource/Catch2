@@ -79,7 +79,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       shell: bash
-      run: sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
+      run: sonar-scanner -Dsonar.branch.name=devel -Dsonar.cfamily.build-wrapper-output=${{runner.workspace}}/cfamily-output
       # --------------------------------------------------------
 
     - name: Run tests
